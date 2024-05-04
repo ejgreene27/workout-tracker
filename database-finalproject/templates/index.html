@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Log</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light gray background color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            height: 100vh; /* Set height to 100% of viewport height */
+            font-family: Arial, sans-serif; /* Use Arial font with fallback to sans-serif */
+        }
+
+        form {
+            width: 300px; /* Set width of form */
+            padding: 20px; 
+            background-color: #fff; /* White background color for form */
+            border-radius: 10px; /* Add border radius for rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        label, input, select, textarea {
+            display: block; /* Display elements as block */
+            margin-bottom: 10px; /* Add some spacing between elements */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; /* Blue submit button color */
+            color: #fff; /* White text color */
+            border: none; /* Remove border */
+            padding: 10px 20px; /* Add padding */
+            border-radius: 5px; /* Add border radius */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; 
+        }
+
+        a {
+            display: block; /* Display link as block */
+            text-align: center; /* Center link text */
+            margin-top: 20px; /* Add some spacing */
+            text-decoration: none; 
+            color: #007bff; 
+        }
+
+        a:hover {
+            text-decoration: underline; 
+        }
+
+        #sample-workouts {
+            margin-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Workout Log</h1>
+    <p>This is my exercise log. You can use the dropdown menu to see sample exercises, then enter your own workout. The log will track and display your workouts also.</p>
+    <p>The ID keeps track of each individual exercise you complete. Even though I designed specific exercise days, you can choose any exercise you want on any day.</p>
+    <form action="/add_workout" method="post">
+        <label for="day">Select Exercise Day:</label>
+        <select id="day" name="day" required>
+            <option value="legs">Legs</option>
+            <option value="arms">Arms</option>
+            <option value="chest">Chest</option>
+            <option value="back">Back</option>
+            <option value="shoulders">Shoulders</option>
+        </select><br><br>
+        <!-- Display sample workouts based on the selected exercise day -->
+        <div id="sample-workouts">
+            <!-- Sample workouts will be displayed here -->
+        </div><br>
+        <label for="exercise">Enter Exercise Name:</label>
+        <input type="text" id="exercise" name="exercise" required><br><br>
+        <label for="sets">Sets:</label>
+        <input type="number" id="sets" name="sets" required><br><br>
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" required><br><br>
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" name="weight" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="/workouts">View Workouts Log</a>
+
+    <script>
+        // Function to display sample workouts based on the selected exercise day
+        function displaySampleWorkouts() {
+            // Get the selected exercise day
+            var selectedDay = document.getElementById("day").value;
+            // Define sample workouts for each exercise day
+            var sampleWorkouts = {
+                "legs": ["Squats/Hack Squats/Leg Press - 3 sets of 5-8 reps", "Leg Extensions - 3 sets of 6-10 reps", "Leg Curls - 3 sets of 6-10 reps"],
+                "arms": ["Bicep Curls - 3 sets of 6-10 reps", "Hammer Curls - 3 sets of 6-10 reps", "Dip Machine - 3 sets of 6-10 reps"],
+                "chest": ["Seated Chest Press Machine - 3 sets of 5-8 reps", "Incline Smith Machine Press - 3 sets of 5-8 reps", "Chest Flyes - 3 sets of 6-10 reps"],
+                "back": ["Lat Pulldown - 3 sets of 5-8 reps", "Seated Low Row - 3 sets of 5-8 reps", "Shrugs - 3 sets of 6-10 reps"],
+                "shoulders": ["Smith Shoulder Press - 3 sets of 5-8 reps", "Rear Delt Flyes - 3 sets of 6-10 reps", "Delt Raise Machine - 3 sets of 6-10 reps"]
+            };
+            // Get the container to display sample workouts
+            var sampleWorkoutsContainer = document.getElementById("sample-workouts");
+            // Clear previous sample workouts
+            sampleWorkoutsContainer.innerHTML = "";
+            // Display sample workouts for the selected exercise day
+            sampleWorkouts[selectedDay].forEach(function(workout) {
+                sampleWorkoutsContainer.innerHTML += "<p>" + workout + "</p>";
+            });
+        }
+
+        // Add event listener to the dropdown menu to display sample workouts when a day is selected
+        document.getElementById("day").addEventListener("change", displaySampleWorkouts);
+
+        // Display sample workouts initially when the page loads
+        displaySampleWorkouts();
+    </script>
+</body>
+</html>
+
+
